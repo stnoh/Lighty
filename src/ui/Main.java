@@ -14,6 +14,7 @@ import model.Lighty.LIVE_MODE;
 // Lighty launcher
 //
 // Data   : 10/Sep/2012
+//          13/Oct/2016 modified for 1920x1080 screen
 // Author : Seung-tak Noh
 ////////////////////////////////////////////////////////////////////////////////
 public class Main implements ActionListener {
@@ -45,9 +46,9 @@ public class Main implements ActionListener {
 		//*
 		int PAINT_W = 80;
 		int PAINT_H = 60;
-		margin = new Point(320,0);
-		screen = new Dimension(1280,800);
-		window = new Dimension(800,600);
+		screen = new Dimension(1920,1080);
+		margin = new Point(1920-320,1080-230);
+		window = new Dimension(1320,990);
 		/*/
 		// input
 		String[] res = args[0].split("x");
@@ -79,7 +80,8 @@ public class Main implements ActionListener {
 		// main frame
 		////////////////////////////////////////////////////////////
 		frame_main = new JFrame("Main window");
-		frame_main.setSize(250,180);
+		frame_main.setSize(320,180);
+		frame_main.setLocation(margin);
 		frame_main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setMenubar();
 		
@@ -216,15 +218,15 @@ public class Main implements ActionListener {
 		
 		// painting canvas
 		frame_canvas.setSize(window);
-		frame_canvas.setLocation(margin);
+		frame_canvas.setLocation(0,0);
 		canvas.setDrawMode(DRAW_MODE.CAPTURE);
 		canvas.setContourMode(true);
 		
 		// tool panel
-		int w = screen.width - window.width - 140;
-		int h = window.height - 50;
+		int w = screen.width - window.width - 200;
+		int h = window.height - 350;
 		frame_tool.setSize(w,h);
-		frame_tool.setLocation(margin.x+window.width+(screen.width-window.width-w)/2, margin.y+(window.height-h)/2);
+		frame_tool.setLocation(window.width+(screen.width-window.width-w)/2, (window.height-h)/2);
 		toolPanel.layoutVertical();
 		
 		// visibility
@@ -237,13 +239,13 @@ public class Main implements ActionListener {
 		
 		// live view
 		frame_live.setSize(window);
-		frame_live.setLocation(margin);
+		frame_live.setLocation(0,0);
 		
 		// direct manipulation
 		int w = screen.width - window.width;
 		int h = w*3/4;
 		frame_direct.setSize(w,h);
-		frame_direct.setLocation(margin.x+window.width,margin.y+(window.height-h)/2);
+		frame_direct.setLocation(window.width, (window.height-h)/2);
 		
 		// visibility
 		frame_canvas.setVisible(false);
@@ -260,18 +262,18 @@ public class Main implements ActionListener {
 		
 		// painting canvas
 		frame_canvas.setSize(window);
-		frame_canvas.setLocation(margin);
+		frame_canvas.setLocation(0,0);
 		canvas.setDrawMode(DRAW_MODE.CAPTURE);
 		canvas.setContourMode(true);
 
 		// direct manipulation
 		frame_direct.setSize(window);
-		frame_direct.setLocation(margin.x+window.width, margin.y);
+		frame_direct.setLocation(window.width, 0);
 		
 		// tool panel
-		int tool_w = screen.width-150;
-		frame_tool.setSize(tool_w,screen.height-window.height);
-		frame_tool.setLocation(margin.x+screen.width-tool_w, margin.y+window.height);
+		int tool_w = screen.width-320;
+		frame_tool.setSize(tool_w,screen.height-window.height-50);
+		frame_tool.setLocation(0, window.height);
 		toolPanel.layoutHorizontal();
 
 		// visibility
@@ -289,18 +291,18 @@ public class Main implements ActionListener {
 		
 		// live view
 		frame_live.setSize(window);
-		frame_live.setLocation(margin);
+		frame_live.setLocation(0,0);
 		
 		// painting canvas
 		frame_canvas.setSize(window);
-		frame_canvas.setLocation(margin.x+window.width, margin.y);
+		frame_canvas.setLocation(window.width, 0);
 		canvas.setDrawMode(DRAW_MODE.TARGET_FINE);
 		canvas.setContourMode(false);
 		
 		// tool panel
-		int tool_w = screen.width-150;
-		frame_tool.setSize(tool_w,screen.height-window.height);
-		frame_tool.setLocation(margin.x+screen.width-tool_w, margin.y+window.height);
+		int tool_w = screen.width-320;
+		frame_tool.setSize(tool_w,screen.height-window.height-50);
+		frame_tool.setLocation(0, window.height);
 		toolPanel.layoutHorizontal();
 		
 		// visibility

@@ -349,6 +349,12 @@ public class Transform {
 		double[] double_array = new double[W*H];
 		
 		try{
+			// simple serialization of array
+			ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename));
+			double_array = (double[])in.readObject();
+			in.close();
+			
+			/*
 			BufferedReader br = new BufferedReader(new FileReader(new File(filename)));
 			
 			for(int j=0;j<H;j++)
@@ -357,6 +363,7 @@ public class Transform {
 			}
 			
 			br.close();
+			//*/
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -371,16 +378,23 @@ public class Transform {
 		System.out.println("write: "+filename);
 		
 		try{
+			// simple deserialization of array
+			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename));
+			out.writeObject(double_array);
+			out.close();
+			
+			/*
 			BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
 			
 			for(int j=0;j<H;j++)
-			for(int i=0;i<W ;i++){
+			for(int i=0;i<W;i++){
 				bw.write( Double.toString(double_array[i+j*W]) );
 				bw.newLine();
 			}
 			
 			bw.flush();
 			bw.close();
+			//*/
 		}catch(Exception e){
 			e.printStackTrace();
 		}

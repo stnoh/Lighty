@@ -45,12 +45,27 @@ public class Optimizer {
 						+String.valueOf(y)+".txt");
 				
 				try{
+					// simple deserialization of array
+					ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename));
+					double[] double_array = (double[])in.readObject();
+					in.close();
+							
+					// convert double array to float array
+					float[] float_array = new float[W*H];
+					for(int j=0;j<H;j++)
+					for(int i=0;i<W;i++){
+						float_array[i+j*W] = (float)double_array[i+j*W];
+					}
+					radianceMap[n][x][y] = float_array;
+
+					/*
 					BufferedReader br = new BufferedReader(new FileReader(new File(filename)));
 					for(int j=0;j<H;j++)
 					for(int i=0;i<W;i++){
 						radianceMap[n][x][y][i+j*W] = Float.valueOf(br.readLine());
 					}
 					br.close();
+					//*/
 				}catch(Exception e){
 					e.printStackTrace();
 				}

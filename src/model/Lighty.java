@@ -287,6 +287,18 @@ public class Lighty {
 		System.out.println("read: "+filename);
 		
 		try{
+			// simple deserialization of array
+			ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename));			
+			double[] double_array = (double[])in.readObject();
+			in.close();
+
+			// convert double array to float array
+			float[] float_array = new float[double_array.length];
+			for(int i=0;i<double_array.length;i++){
+				solver_base[i] =(float)double_array[i];
+			}
+			
+			/*
 			BufferedReader br = new BufferedReader(new FileReader(new File(filename)));
 			
 			for(int j=0;j<COARSE_H;j++)
@@ -295,6 +307,7 @@ public class Lighty {
 			}
 			
 			br.close();
+			//*/			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
